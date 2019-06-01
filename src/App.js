@@ -1,8 +1,8 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const morgan = require("morgan");
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const morgan = require('morgan');
 
 class App {
   constructor() {
@@ -15,12 +15,12 @@ class App {
 
     this.app.use(cors());
 
-    this.app.use(morgan("dev"));
+    this.app.use(morgan('dev'));
   }
 
   start() {
     this.app.listen(3003, () => {
-      console.log("Server is running. Use your API");
+      console.log('Server is running. Use your API');
     });
   }
 }
