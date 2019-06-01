@@ -32,6 +32,7 @@ class App {
 
     App.connectMongo().then(() => {
       this.app.listen(3003, () => {
+        // eslint-disable-next-line no-console
         console.log('Server is running. Use your API');
       });
     });
