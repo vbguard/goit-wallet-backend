@@ -23,6 +23,7 @@ class App {
   }
 
   static connectMongo() {
+    mongoose.set('useCreateIndex', true);
     return mongoose.connect('mongodb://localhost:27017/wallet', { useNewUrlParser: true });
   }
 

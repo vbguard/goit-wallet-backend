@@ -4,19 +4,39 @@ const bcrypt = require('bcrypt');
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    validate: { validator: validator.isEmail, message: '{VALUE} is not a valid email' },
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      validate: { validator: validator.isEmail, message: '{VALUE} is not a valid email' },
+    },
+    password: { type: String, required: true },
+    name: { type: String, required: true },
   },
-  password: { type: String, required: true },
-  name: { type: String, required: true },
-});
+  {
+    timestamps: true,
+    toObject: {
+      virtuals: true,
+      versionKey: false,
+      transform: (_, ret) => {
+        // eslint-disable-next-line no-param-reassign
+        delete ret.id;
+        // eslint-disable-next-line no-param-reassign
+        delete ret.password;
+        return ret;
+      },
+    },
+  },
+);
 
-userSchema.methods.comparePasswords = function comparePasswords(password) {
-  return bcrypt.compare(password, this.password);
+userSchema.methods.comparePasswords = async function comparePasswords(password) {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (error) {
+    return null;
+  }
 };
 
 userSchema.pre('save', function preUserSave(done) {
