@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
 
+const api = require('./api');
+
 class App {
   constructor() {
     this.app = express();
@@ -16,11 +18,21 @@ class App {
     this.app.use(cors());
 
     this.app.use(morgan('dev'));
+
+    this.app.use(api);
+  }
+
+  static connectMongo() {
+    return mongoose.connect('mongodb://localhost:27017/wallet', { useNewUrlParser: true });
   }
 
   start() {
-    this.app.listen(3003, () => {
-      console.log('Server is running. Use your API');
+    this.configure();
+
+    App.connectMongo().then(() => {
+      this.app.listen(3003, () => {
+        console.log('Server is running. Use your API');
+      });
     });
   }
 }
