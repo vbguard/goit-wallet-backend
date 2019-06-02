@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
-const { ACCESS_TOKEN_SECRET } = require('../../../config');
-const User = require('../../../models/user');
+
+const { ACCESS_TOKEN_SECRET, ACCESS_TOKEN_EXPIRES_IN } = require('src/config');
+const User = require('src/models/user');
 
 module.exports = async (req, res) => {
   try {
@@ -8,12 +9,15 @@ module.exports = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) return res.status(401).json({ message: 'User with such email does not exist!' });
-    if (!(await user.comparePasswords(password)))
+    if (!(await user.comparePasswords(password))) {
       return res.status(401).json({ message: 'Wrong password!' });
+    }
 
     const plainUser = user.toObject();
 
-    const accessToken = jwt.sign(plainUser, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+    const accessToken = jwt.sign(plainUser, ACCESS_TOKEN_SECRET, {
+      expiresIn: ACCESS_TOKEN_EXPIRES_IN,
+    });
 
     return res.json({ accessToken });
   } catch (error) {
