@@ -25,11 +25,20 @@ const userSchema = new Schema(
         delete ret.id;
         // eslint-disable-next-line no-param-reassign
         delete ret.password;
+        // eslint-disable-next-line no-param-reassign
+        delete ret.wallet;
         return ret;
       },
     },
   },
 );
+
+userSchema.virtual('wallet', {
+  ref: 'Wallet',
+  localField: '_id',
+  foreignField: 'createdBy',
+  justOne: true,
+});
 
 userSchema.methods.comparePasswords = async function comparePasswords(password) {
   try {

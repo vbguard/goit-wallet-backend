@@ -7,6 +7,6 @@ const wallet = require('./wallet');
 const router = express.Router();
 
 router.use('/auth', auth);
-router.use('/wallet', isAuthenticated, wallet);
+router.use('/wallets', isAuthenticated, wallet);
 
 module.exports = router;

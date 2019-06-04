@@ -1,7 +1,8 @@
-const WalletItem = require('src/models/walletItem');
-const Balance = require('src/models/balance');
+const Transaction = require('src/models/transaction');
+const Wallet = require('src/models/wallet');
+const User = require('src/models/user');
 
-const { COST, INCOME } = WalletItem.TYPES;
+const { COST, INCOME } = Transaction.TYPES;
 const {
   MAIN_EXPENSES,
   FOOD,
@@ -14,7 +15,7 @@ const {
   OTHER_EXPENSES,
   REGULAR_INCOME,
   IRREGULAR_INCOME,
-} = WalletItem.CATEGORIES;
+} = Transaction.CATEGORIES;
 
 const ALLOWED_CATEGORIES = {
   [COST]: [
@@ -33,26 +34,33 @@ const ALLOWED_CATEGORIES = {
 
 module.exports = async (req, res) => {
   const { date, type, category, comments, amount } = req.body;
+  const userId = req.user._id;
 
   try {
     const amountNumber = Number(amount);
 
-    const balance = await Balance.getOrCreate();
+    const user = await User.findById(userId)
+      .populate('wallet')
+      .lean();
+    const wallet = await Wallet.findById(user.wallet._id);
 
+    console.log('wallet', wallet);
+
+    // TODO: add validation for the requests (use @hapi/joi package)
     if (!ALLOWED_CATEGORIES[type].includes(category)) {
       return res
         .status(412)
         .json({ message: 'Provided category is not allowed for provided type' });
     }
 
-    if (type === COST && amountNumber > balance.total) {
+    if (type === COST && amountNumber > wallet.total) {
       return res.status(412).json({ message: 'Insufficient funds for this operation' });
     }
 
     const balanceAfter =
-      type === COST ? +balance.total - amountNumber : +balance.total + amountNumber;
+      type === COST ? +wallet.total - amountNumber : +wallet.total + amountNumber;
 
-    const walletItem = new WalletItem({
+    const transaction = new Transaction({
       date,
       type,
       category,
@@ -61,18 +69,21 @@ module.exports = async (req, res) => {
       balanceAfter,
     });
 
-    balance.total = balanceAfter;
+    wallet.total = balanceAfter;
 
     if (type === COST) {
-      balance.costs += amountNumber;
+      wallet.costs += amountNumber;
     }
     if (type === INCOME) {
-      balance.income += amountNumber;
+      wallet.income += amountNumber;
     }
 
-    const [savedWalletItem, savedBalance] = await Promise.all([walletItem.save(), balance.save()]);
+    const savedTransaction = await transaction.save();
 
-    res.json({ walletItem: savedWalletItem, balance: savedBalance });
+    wallet.transactions = [...wallet.transactions, savedTransaction._id];
+    await wallet.save();
+
+    res.json(savedTransaction);
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }

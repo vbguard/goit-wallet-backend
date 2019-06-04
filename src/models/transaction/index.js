@@ -21,7 +21,7 @@ const CATEGORIES = {
   IRREGULAR_INCOME: 'IRREGULAR_INCOME',
 };
 
-const walletItemSchema = new Schema(
+const transactionSchema = new Schema(
   {
     date: {
       type: Date,
@@ -55,9 +55,16 @@ const walletItemSchema = new Schema(
   },
 );
 
-walletItemSchema.statics.TYPES = TYPES;
-walletItemSchema.statics.CATEGORIES = CATEGORIES;
+transactionSchema.virtual('wallet', {
+  ref: 'Wallet',
+  localField: '_id',
+  foreignField: 'transactions',
+  justOne: true,
+});
 
-const WalletItem = mongoose.model('WalletItem', walletItemSchema);
+transactionSchema.statics.TYPES = TYPES;
+transactionSchema.statics.CATEGORIES = CATEGORIES;
 
-module.exports = WalletItem;
+const Transaction = mongoose.model('Transaction', transactionSchema);
+
+module.exports = Transaction;

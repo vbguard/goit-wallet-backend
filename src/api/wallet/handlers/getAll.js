@@ -1,7 +1,7 @@
-const WalletItem = require('src/models/walletItem');
+const Transaction = require('src/models/transaction');
 
 module.exports = async (req, res) => {
-  const items = await WalletItem.find();
+  const items = await Transaction.find();
   return res.json({
     items,
   });

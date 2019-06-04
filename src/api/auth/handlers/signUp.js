@@ -1,4 +1,5 @@
 const User = require('src/models/user');
+const Wallet = require('src/models/wallet');
 
 module.exports = async (req, res) => {
   const { name, email, password } = req.body;
@@ -11,6 +12,12 @@ module.exports = async (req, res) => {
     });
 
     const savedUser = await user.save();
+
+    const wallet = new Wallet({
+      createdBy: savedUser._id,
+    });
+
+    await wallet.save();
 
     const plainUser = savedUser.toObject();
 

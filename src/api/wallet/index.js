@@ -4,7 +4,7 @@ const createHandler = require('./handlers/create');
 
 const router = express.Router();
 
-router.get('/', getAllHandler);
-router.post('/', createHandler);
+router.get('/transactions', getAllHandler);
+router.post('/transactions', createHandler);
 
 module.exports = router;
