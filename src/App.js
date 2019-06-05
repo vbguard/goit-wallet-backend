@@ -4,12 +4,15 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
 
-const api = require('./api');
+const api = require('src/api');
+const validation = require('src/middlewares/validation');
+
 const { MONGO_CONNECTION_URL } = require('./config');
 
 class App {
   constructor() {
     this.app = express();
+    this.port = 3003;
   }
 
   configure() {
@@ -20,6 +23,7 @@ class App {
 
     this.app.use(morgan('dev'));
 
+    this.app.use(validation);
     this.app.use(api);
   }
 
@@ -32,9 +36,9 @@ class App {
     this.configure();
 
     App.connectMongo().then(() => {
-      this.app.listen(3003, () => {
+      this.app.listen(this.port, () => {
         // eslint-disable-next-line no-console
-        // console.log('Server is running. Use your API');
+        console.log(`Application is running on port ${this.port}`);
       });
     });
   }

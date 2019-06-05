@@ -44,9 +44,6 @@ module.exports = async (req, res) => {
       .lean();
     const wallet = await Wallet.findById(user.wallet._id);
 
-    console.log('wallet', wallet);
-
-    // TODO: add validation for the requests (use @hapi/joi package)
     if (!ALLOWED_CATEGORIES[type].includes(category)) {
       return res
         .status(412)
