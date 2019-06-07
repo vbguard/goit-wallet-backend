@@ -3,22 +3,22 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const TYPES = {
-  INCOME: 'INCOME',
-  COST: 'COST',
+  INCOME: '+',
+  COST: '-',
 };
 
 const CATEGORIES = {
-  MAIN_EXPENSES: 'MAIN_EXPENSES',
-  FOOD: 'FOOD',
-  CAR: 'CAR',
-  ENTERTAINMENT: 'ENTERTAINMENT',
-  SELF_CARE: 'SELF_CARE',
-  CHILD_CARE: 'CHILD_CARE',
-  HOUSEHOLD_PRODUCTS: 'HOUSEHOLD_PRODUCTS',
-  EDUCATION: 'EDUCATION',
-  OTHER_EXPENSES: 'OTHER_EXPENSES',
-  REGULAR_INCOME: 'REGULAR_INCOME',
-  IRREGULAR_INCOME: 'IRREGULAR_INCOME',
+  MAIN_EXPENSES: 'Main Expenses',
+  FOOD: 'Food',
+  CAR: 'Car',
+  ENTERTAINMENT: 'Entertainment',
+  SELF_CARE: 'Self Care',
+  CHILD_CARE: 'Child Care',
+  HOUSEHOLD_PRODUCTS: 'Household Products',
+  EDUCATION: 'Education',
+  OTHER_EXPENSES: 'Other expenses',
+  REGULAR_INCOME: 'Regular Income',
+  IRREGULAR_INCOME: 'Irregular Income',
 };
 
 const transactionSchema = new Schema(

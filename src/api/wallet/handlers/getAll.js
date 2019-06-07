@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
 
   return res.json({
     totalBalance: wallet.total,
-    items: wallet.transactions,
+    data: wallet.transactions,
   });
 };
 

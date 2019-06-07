@@ -15,11 +15,11 @@ module.exports = async (req, res) => {
 
     const plainUser = user.toObject();
 
-    const accessToken = jwt.sign(plainUser, ACCESS_TOKEN_SECRET, {
+    const token = jwt.sign(plainUser, ACCESS_TOKEN_SECRET, {
       expiresIn: ACCESS_TOKEN_EXPIRES_IN,
     });
 
-    return res.json({ accessToken });
+    return res.json({ token, user });
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }

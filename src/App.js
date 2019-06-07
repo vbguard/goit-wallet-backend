@@ -3,16 +3,17 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
+const swaggerDoc = require('src/swagger/swaggerDoc');
 
 const api = require('src/api');
 const validation = require('src/middlewares/validation');
 
-const { MONGO_CONNECTION_URL } = require('./config');
+const { MONGO_CONNECTION_URL, PORT } = require('./config');
 
 class App {
   constructor() {
     this.app = express();
-    this.port = 3003;
+    this.port = PORT;
   }
 
   configure() {
@@ -25,6 +26,7 @@ class App {
 
     this.app.use(validation);
     this.app.use(api);
+    swaggerDoc(this.app);
   }
 
   static connectMongo() {

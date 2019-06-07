@@ -13,11 +13,24 @@ const userSchema = new Schema(
       validate: { validator: validator.isEmail, message: '{VALUE} is not a valid email' },
     },
     password: { type: String, required: true },
-    name: { type: String },
+    name: { type: String, required: true },
   },
   {
     timestamps: true,
     toObject: {
+      versionKey: false,
+      virtuals: true,
+      transform: (_, ret) => {
+        // eslint-disable-next-line no-param-reassign
+        delete ret.id;
+        // eslint-disable-next-line no-param-reassign
+        delete ret.password;
+        // eslint-disable-next-line no-param-reassign
+        delete ret.wallet;
+        return ret;
+      },
+    },
+    toJSON: {
       virtuals: true,
       versionKey: false,
       transform: (_, ret) => {

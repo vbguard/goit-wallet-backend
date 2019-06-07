@@ -57,9 +57,10 @@ module.exports = async (req, res) => {
     const balanceAfter =
       type === COST ? +wallet.total - amountNumber : +wallet.total + amountNumber;
 
+    const transformType = type === COST ? '-' : '+';
     const transaction = new Transaction({
       date,
-      type,
+      type: transformType,
       category,
       comments,
       amount: amountNumber,
