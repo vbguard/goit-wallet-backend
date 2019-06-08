@@ -1,5 +1,5 @@
-const User = require('src/models/user');
-const Wallet = require('src/models/wallet');
+const User = require('../../../models/user');
+const Wallet = require('../../../models/wallet');
 
 module.exports = async (req, res) => {
   const { name, email, password } = req.body;

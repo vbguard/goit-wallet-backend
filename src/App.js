@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
-const swaggerDoc = require('src/swagger/swaggerDoc');
 
-const api = require('src/api');
-const validation = require('src/middlewares/validation');
+const swaggerDoc = require('./swagger/swaggerDoc');
+const api = require('./api');
+const validation = require('./middlewares/validation');
 
 const { MONGO_CONNECTION_URL, PORT } = require('./config');
 
@@ -25,7 +25,7 @@ class App {
     this.app.use(morgan('dev'));
 
     this.app.use(validation);
-    this.app.use(api);
+    this.app.use('/api', api);
     swaggerDoc(this.app);
   }
 

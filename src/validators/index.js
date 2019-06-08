@@ -1,5 +1,5 @@
-const auth = require('src/validators/auth');
-const transactions = require('src/validators/transactions');
+const auth = require('../validators/auth');
+const transactions = require('../validators/transactions');
 
 module.exports = {
   ...auth,

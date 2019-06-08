@@ -1,6 +1,6 @@
-const Transaction = require('src/models/transaction');
-const Wallet = require('src/models/wallet');
-const User = require('src/models/user');
+const Transaction = require('../../../models/transaction');
+const Wallet = require('../../../models/wallet');
+const User = require('../../../models/user');
 
 const { COST, INCOME } = Transaction.TYPES;
 const {

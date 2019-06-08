@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const { get } = require('lodash');
-const validators = require('src/validators');
+const validators = require('../validators');
 
 module.exports = async (req, res, next) => {
   try {

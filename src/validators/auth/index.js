@@ -1,4 +1,4 @@
-const Joi = require('src/validators/customJoi');
+const Joi = require('../../validators/customJoi');
 
 module.exports = {
   '/auth/login': {

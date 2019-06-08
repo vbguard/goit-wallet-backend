@@ -1,5 +1,5 @@
-const Joi = require('src/validators/customJoi');
-const Transaction = require('src/models/transaction');
+const Joi = require('../../validators/customJoi');
+const Transaction = require('../../models/transaction');
 
 module.exports = {
   '/wallets/transactions': {
