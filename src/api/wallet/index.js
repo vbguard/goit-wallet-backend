@@ -14,7 +14,7 @@ module.exports = router;
  * /api/wallets/transactions:
  *    post:
  *     tags:
- *       - Public Routes
+ *       - Protected Routes
  *     parameters:
  *            - in: body
  *              name: id
@@ -65,7 +65,7 @@ module.exports = router;
 
  *    get:
  *     tags:
- *       - Public Routes
+ *       - Protected Routes
  *     responses:
  *       200:
  *         description: Return json with all transactions (data) and total balance
