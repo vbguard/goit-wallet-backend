@@ -11,7 +11,7 @@ const options = {
     },
     basePath: '/api',
   },
-  apis: ['../api/index.js'],
+  apis: ['src/api/*/index.js'],
 };
 
 const specs = swaggerJsDoc(options);

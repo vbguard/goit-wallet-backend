@@ -33,7 +33,7 @@ const ALLOWED_CATEGORIES = {
 };
 
 module.exports = async (req, res) => {
-  const { date, type, category, comments, amount } = req.body;
+  const { date, type, category, comments, amount, id } = req.body;
   const userId = req.user._id;
 
   try {
@@ -59,6 +59,7 @@ module.exports = async (req, res) => {
 
     const transformType = type === COST ? '-' : '+';
     const transaction = new Transaction({
+      id,
       date,
       type: transformType,
       category,

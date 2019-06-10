@@ -23,6 +23,10 @@ const CATEGORIES = {
 
 const transactionSchema = new Schema(
   {
+    id: {
+      type: String,
+      required: true,
+    },
     date: {
       type: Date,
       required: true,

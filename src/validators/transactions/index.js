@@ -4,6 +4,7 @@ const Transaction = require('../../models/transaction');
 module.exports = {
   '/wallets/transactions': {
     POST: Joi.object({
+      id: Joi.string().required(),
       date: Joi.date().required(),
       type: Joi.string()
         .valid(Object.values(Transaction.TYPES))
