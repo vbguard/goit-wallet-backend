@@ -3,15 +3,15 @@ const swaggerJsDoc = require('swagger-jsdoc');
 
 const options = {
   swaggerDefinition: {
-    openApi: '3.0.0',
+    openapi: '3.0.3',
     info: {
       title: 'Wallet API',
       version: '1.0.0',
       description: 'Express API for Wallet, view what routes pass',
     },
-    basePath: '/api',
+    basePath: 'https://wallet.goit.co.ua/api',
   },
-  apis: ['src/api/*/index.js'],
+  apis: ['src/api/routes.js'],
 };
 
 const specs = swaggerJsDoc(options);

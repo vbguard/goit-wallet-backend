@@ -1,49 +1,31 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
 
 const swaggerDoc = require('./swagger/swaggerDoc');
-const api = require('./api');
+const api = require('./api/routes.js');
 const validation = require('./middlewares/validation');
 
 const { MONGO_CONNECTION_URL, PORT } = require('./config');
 
-class App {
-  constructor() {
-    this.app = express();
-    this.port = PORT;
-  }
+const app = express();
 
-  configure() {
-    this.app.use(bodyParser.urlencoded({ extended: true }));
-    this.app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-    this.app.use(cors());
+app.use(cors());
 
-    this.app.use(morgan('dev'));
+app.use(morgan('dev'));
+app.use(validation);
 
-    this.app.use(validation);
-    this.app.use('/api', api);
-    swaggerDoc(this.app);
-  }
+swaggerDoc(app);
+app.use('/api', api);
 
-  static connectMongo() {
-    mongoose.set('useCreateIndex', true);
-    return mongoose.connect(MONGO_CONNECTION_URL, { useNewUrlParser: true });
-  }
+mongoose.set('useCreateIndex', true);
+mongoose.connect(MONGO_CONNECTION_URL, { useNewUrlParser: true });
 
-  start() {
-    this.configure();
-
-    App.connectMongo().then(() => {
-      this.app.listen(this.port, () => {
-        // eslint-disable-next-line no-console
-        console.log(`Application is running on port ${this.port}`);
-      });
-    });
-  }
-}
-
-module.exports = App;
+app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Application is running on port ${PORT}`);
+});
