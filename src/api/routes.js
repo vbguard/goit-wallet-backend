@@ -50,7 +50,7 @@ const router = express.Router();
 /**
  * @swagger
  *
- * /api/login:
+ * /api/auth/login:
  *   post:
  *     tags:
  *       - Public Routes
