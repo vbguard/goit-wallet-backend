@@ -15,9 +15,7 @@ module.exports = async (req, res) => {
 
     const plainUser = user.toObject();
 
-    const token = jwt.sign(plainUser, ACCESS_TOKEN_SECRET, {
-      expiresIn: ACCESS_TOKEN_EXPIRES_IN,
-    });
+    const token = jwt.sign(plainUser, ACCESS_TOKEN_SECRET);
 
     return res.json({ token, user });
   } catch (error) {
