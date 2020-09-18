@@ -1,25 +1,18 @@
 {
-  "name": "finalProject",
+  "name": "wallet",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "./node_modules/.bin/eslint --ext js src",
     "eslint-fix": "./node_modules/.bin/eslint --fix src",
-    "start": "nodemon ./index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nataliia-v/finalProject.git"
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nataliia-v/finalProject/issues"
-  },
-  "homepage": "https://github.com/nataliia-v/finalProject#readme",
+  "homepage": "https://github.com/vbguard",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -32,20 +25,19 @@
     ]
   },
   "dependencies": {
-    "@hapi/joi": "^15.0.3",
-    "bcrypt": "^3.0.6",
-    "body-parser": "^1.19.0",
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.11",
-    "mongoose": "^5.5.12",
-    "morgan": "^1.9.1",
-    "nodemon": "^1.19.1",
-    "passport": "^0.4.0",
-    "swagger-jsdoc": "^3.2.9",
-    "swagger-ui-express": "^4.0.6",
-    "validator": "^11.0.0"
+    "lodash": "^4.17.20",
+    "mongoose": "^5.10.5",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4",
+    "validator": "^13.1.1"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
